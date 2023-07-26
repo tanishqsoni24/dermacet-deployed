@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>
+    My Orders | Dermacet Organics
+</title>
+{% endblock %}
+
+{% block css %}
+<style>
+    :root {
+        --theme:#475D44;
+        --focus:#344232;
+      }
+  
+      .buyBtn{
+        background: var(--theme);
+        color: white;
+        border-radius: 0;
+        border: 2px solid var(--theme);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+  
+      .buyBtn:hover{
+        color: white;
+        background: var(--focus);
+        text-decoration: none;
+      }
+  
+      .buyBtn:active{
+        background: var(--focus);
+        border: 2px solid var(--focus);
+      }
+    .tableStart{
+        margin-top: 4rem;
+    }
+/* SHOW SORTABLE ICON ON HOVER OF TH */
+table.dataTable thead th.sorting:hover:after {
+    opacity: 1;
+    transform: translate(0);
+}
+
+/* OVERRIDES FOR SORT ICON FROM DATABLES */
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+    font-family: FontAwesome;
+    position: relative !important;
+    display: inline-block !important;
+    font-size: 14px !important;
+    top: unset !important;
+    right: unset !important;
+    content: "\f062" !important;
+    transform-origin: center center;
+    transition: 200ms ease-out;
+    padding-top: 0 !important;
+}
+
+/* DEFAULT SORT ICON COLOR AND PLACEMENT */
+table.dataTable thead th.sorting:after {
+    transform: translateY(5px);
+    opacity: 0;
+    color: #b0bec5 !important;
+}
+
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+    margin-left: 10px;
+}
+
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+    color: #4285f4;
+}
+
+/* SORTING DESC ICON ANIMATION */
+table.dataTable thead th.sorting_desc:after {
+    transform: rotate(180deg);
+}
+
+/* REMOVING STYLES FROM ORDEROPTIONS.CSS THAT WE CAN REMOVE */
+table.dataTable thead th.sorting_desc:before,
+table.dataTable thead th.sorting_asc:before {
+    display: none;
+}
+
+
+.micro{
+    width: 1rem;
+    display: inline;
+}
+    </style>
+{% endblock %}
+
+{% block start %}
+    {% if Paid_Orders %}
+    <h2 class="text-center mt-5">My Orders</h2>
+    <div class="table-responsive pb-5 tableStart container">
+        <table id="tbOrderHistory" class="table border ps-table w-100 mb-3">
+            <thead>
+                <tr>
+                    <th class="font-weight-bold py-2 border-0">S.No</th>
+                    <th class="font-weight-bold py-2 border-0 quantity">Order ID</th>
+                    <th class="font-weight-bold py-2 border-0 ">Order Item(s)</th>
+                    <th class="font-weight-bold py-2 border-0 ">Placed On</th>
+                    <th class="font-weight-bold py-2 border-0 ">Payment Status</th>
+                    <th class="font-weight-bold py-2 border-0 ">Dispatched Status</th>
+                    <th class="font-weight-bold py-2 border-0 ">Shipping Status</th>
+                    <th class="font-weight-bold py-2 border-0 ">Amount</th>
+                    <th class="font-weight-bold py-2 border-0 ">Invoice</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in Paid_Orders %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'view_order' order.cart.razorpay_order_id %}" class="no_text_decoration" style="color: var(--theme); text-decoration: revert;">{{order.cart.razorpay_order_id}}</a></td>
+                    <td>{{order.cart.paid_cart_quantity}}</td>
+                    <td>{{order.cart.publish_date}}</td>
+                    {% if order.cart.is_paid %}
+                    <td><img class="micro" src="/assets/img/icon/status_paid.png" alt=""> Paid</td>
+                    {% else %}
+                    <td><img class="micro" src="/assets/img/icon/unpaid.png" alt=""> Pending</td>
+                    {% endif %}
+                    {% if order.dispatched_date %}
+                    <td><img class="micro" src="/assets/img/icon/status_paid.png" alt=""> Dispatched</td>
+                    {% else %}
+                    <td><img class="micro" src="/assets/img/icon/unpaid.png" alt=""> Pending</td>
+                    {% endif %}
+                    {% if order.delivered_status %}
+                    <td><img class="micro" src="/assets/img/icon/status_paid.png" alt=""> Shipped</td>
+                    {% else %}
+                    <td><img class="micro" src="/assets/img/icon/unpaid.png" alt=""> Pending</td>
+                    {% endif %}
+                    <td>₹{{order.cart.payment_done_amount}}</td>
+                    <td><a href="{% url 'download_invoice' order.cart.razorpay_order_id %}" onclick="window.open(this.href, '_blank', 'width=5000,height=5000'); return false;"  style="color: var(--theme);">Download</a></td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <h2 class="text-center my-5">No Orders Yet</h2>
+    {% endif %}
+{% endblock %}

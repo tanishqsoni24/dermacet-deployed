@@ -1,0 +1,370 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>
+    Contract Manufacturing | Dermacet Organics
+</title>
+{% endblock %}
+
+{% block css %}
+<style>
+    /* 64ac15 */
+
+    :root {
+      --theme:#475D44;
+
+    }
+
+    .buyBtn{
+      background-color: var(--theme);
+      color: white;
+    }
+
+body {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #b9b9b9;
+}
+
+.inner-
+
+h4 {
+  color: var(--theme);
+}
+.level_manufacturing{
+  width: 100%;
+  padding: 0.5rem 1rem;
+  /* line-height: 1.4; */
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  -webkit-transition: 0.35s ease-in-out;
+  -moz-transition: 0.35s ease-in-out;
+  -o-transition: 0.35s ease-in-out;
+  transition: 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+input:focus {
+  outline: 0;
+  border-color: var(--focus);
+}
+input:focus + .input-icon i {
+  color: var(--theme);
+}
+input:focus + .input-icon:after {
+  border-right-color: var(--theme);
+}
+input[type="radio"] {
+  display: none;
+}
+input[type="radio"] + label{
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  float: left;
+  border-radius: 0;
+}
+input[type="radio"] + label:first-of-type {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+input[type="radio"] + label:last-of-type {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+input[type="radio"] + label i {
+  padding-right: 0.4em;
+}
+input[type="radio"]:checked + label,
+input:checked + label:before{
+  background-color: var(--theme);
+  color: #fff;
+  border-color: var(--focus);
+}
+input[type="checkbox"] {
+  display: none;
+}
+input[type="checkbox"] + label {
+  position: relative;
+  display: block;
+  padding-left: 1.6em;
+}
+input[type="checkbox"] + label:before {
+  position: absolute;
+  top: 0.2em;
+  left: 0;
+  display: block;
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  content: "";
+}
+input[type="checkbox"] + label:after {
+  position: absolute;
+  top: 0.45em;
+  left: 0.2em;
+  font-size: 0.8em;
+  color: #fff;
+  opacity: 0;
+  font-family: FontAwesome;
+  content: "\f00c";
+}
+input:checked + label:after {
+  opacity: 1;
+}
+
+.input-group {
+  margin-bottom: 1em;
+  zoom: 1;
+}
+.input-group:before,
+.input-group:after {
+  content: "";
+  display: table;
+}
+.input-group:after {
+  clear: both;
+}
+
+.inner-container {
+  max-width: 38em;
+  padding: 2em 3em 2em 3em;
+  margin: 1em 2em 2em 2em;
+  border-radius: 4.2px;
+  background-color: #fff;
+  box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2);
+}
+.row {
+  zoom: 1;
+}
+.row:before,
+.row:after {
+  content: "";
+  display: table;
+}
+.row:after {
+  clear: both;
+}
+.col-half {
+  padding-right: 10px;
+  float: left;
+  width: 50%;
+}
+.col-half:last-of-type {
+  padding-right: 0;
+}
+
+.label-input{
+  width: 100%;
+  line-height: 1.4;
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+  -webkit-transition: 0.35s ease-in-out;
+  -moz-transition: 0.35s ease-in-out;
+  -o-transition: 0.35s ease-in-out;
+  transition: 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+    padding: 0.5rem 1rem;
+    color: black;
+}
+@media only screen and (max-width: 540px) {
+  .col-half {
+    width: 100%;
+    padding-right: 0;
+  }
+}
+
+.full-level-page{
+    display: flex;
+  flex-wrap: wrap;
+  /* background-color: #e3e3e3; */
+  padding: 0!important;
+  justify-content: center;
+}
+
+.img-width-normal{
+    width: 100%;
+}
+
+.left-cont{
+    display: flex;
+    flex-direction: column;
+    /* width: 50%; */
+    margin: 2em 1em;
+    padding: 1em;
+    align-items: center;
+    background: #f9f9f9;
+    color: rgb(97, 97, 97);;
+}
+
+.descp-heading{
+    padding: 2rem 0;
+    /* font-size: 1.1rem; */
+    color: var(--theme);
+}
+
+.description-detail{
+    padding: 0 1rem;
+    text-align: justify;
+}
+</style>
+
+{% endblock %}
+
+{% block start %}
+
+<div class="full-level-page container">
+    <div class="left-cont">
+        <img src="/media/plugins/prod_sample.jpg" class="img-width-normal" alt="">
+        <div class="description-text">
+            <h2 class="text-center descp-heading">One-stop destination for manufacturing and launching your brand of organic cosmetic products, offering a comprehensive range of services to meet your requirements.</h2>
+            <div class="description-detail">
+                <p>
+                    We are a well-established and reliable cooperative specializing in the manufacturing of private label organic cosmetic products in India. Our expertise lies in a wide range of categories such as skincare, hair care, treatment cosmetics, personal care products, facial kits, cleansers, soaps, handmade cleansers, laundry care, and home care items.</p>
+    
+                <p>
+                    At <a href="/" style="color: black;">Dermacet</a>, we prioritize ethical practices and employ natural and sustainable measures in our manufacturing processes. With our state-of-the-art R&D facility, we ensure the production of dependable and high-quality herbal and non-herbal products that you can confidently launch under your own brand. Our services have been sought after by clients from various parts of the world, establishing us as a preferred choice among cosmetic product manufacturing companies.
+                </p>
+                
+                <p>
+                    Having extensive experience in the private label cosmetic products manufacturing industry, we provide comprehensive support from product design to full-scale production or bulk manufacturing of private label cosmetics. Our production facilities boast excellent conditions and a range of filling equipment to accommodate diverse volume requirements.
+                </p>
+                <p>
+                    Choose from our vast library of proven formulations, or we can customize products to meet your specific needs through accelerated research. Our dedicated research and development team understands your requirements and develops products tailored to your brand.
+                </p>
+                <p>
+                    We are committed to turning your dream into a profitable venture for your brand.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="inner-container container" style="max-width: 38em;" >
+        <div class="row">
+            <form method="post"> {% csrf_token %}
+              {% include "base/alert.html" %}
+                <div class="row">
+                    <h4>Your Personal Details</h4>
+                    <div class="input-group input-group-icon">
+                        <input class="level_manufacturing" type="text" name="full_name" id="" placeholder="Full Name">
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <input class="level_manufacturing" type="email" name="email" id="" placeholder="Email Adress">
+                    </div>
+                    <div class="input-group input-group-icon">
+                        <input class="level_manufacturing" type="tel" name="phone_num" id="" placeholder="Enter Phone Number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Interested In</h4>
+                        <div class="input-group">  
+                            <input class="level_manufacturing" type="radio" name="interested" value="Skin-Care" id="Skin-Care">
+                            <label class="label-input" for="Skin-Care">Skin Care</label> 
+                            <input class="level_manufacturing" type="radio" name="interested" value="Hair-Care" id="Hair-Care">
+                            <label class="label-input" for="Hair-Care">Hair Care</label>
+                            <input class="level_manufacturing" type="radio" name="interested" value="Eye-Care" id="Eye-Care">
+                            <label class="label-input" for="Eye-Care">Eye Care</label>
+                            <input class="level_manufacturing" type="radio" name="interested" value="cleanser" id="cleanser">
+                            <label class="label-input" for="cleanser">Cleanser</label>
+                            <input class="level_manufacturing" type="radio" name="interested" value="professional-care" id="professional-care">
+                            <label class="label-input" for="professional-care">Professional Care</label>
+                            <input class="level_manufacturing" type="radio" name="interested" value="Sun-Care" id="Sun-Care">
+                            <label class="label-input" for="Sun-Care">Sun Care</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Types Of Products</h4>
+                        <div class="input-group">  
+                            <input class="level_manufacturing" type="radio" name="Types" value="natural" id="natural">
+                            <label class="label-input" for="natural">Natural</label>
+                            <input class="level_manufacturing" type="radio" name="Types" value="organic" id="organic">
+                            <label class="label-input" for="organic">Organic</label>
+                            <input class="level_manufacturing" type="radio" name="Types" value="paraben-free" id="paraben-free">
+                            <label class="label-input" for="paraben-free">Paraben Free</label>
+                            <input class="level_manufacturing" type="radio" name="Types" value="chemical-free" id="chemical-free">
+                            <label class="label-input" for="chemical-free">Chemical Free</label>
+                            <input class="level_manufacturing" type="radio" name="Types" value="vegan-friendly" id="vegan-friendly">
+                            <label class="label-input" for="vegan-friendly">Vegan Friendly</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h4>Planning To Choose</h4>
+                        <div class="input-group">  
+                            <input class="level_manufacturing" type="radio" name="timetochoose" value="within-a-month" id="within-a-month">
+                            <label class="label-input" for="within-a-month">Within a Month</label> 
+                            <input class="level_manufacturing" type="radio" name="timetochoose" value="one-to-six-month" id="one-to-six-month">
+                            <label class="label-input" for="one-to-six-month">1 to 6 Month</label>
+                            <input class="level_manufacturing" type="radio" name="timetochoose" value="just-inquiring" id="just-inquiring">
+                            <label class="label-input" for="just-inquiring">Just Inquiring</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4>Message</h4>
+                        <div class="input-group">  
+                            <textarea class="level_manufacturing" name="message" cols="30" rows="10" placeholder="message"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" class="input-group buyBtn" value="Submit" id="manufacturing-submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("manufacturing-submit").addEventListener("click", function(event){
+        if (document.querySelector('input[name="full_name"]').value == "") {
+            alert("Please enter your full name");
+            event.preventDefault()
+        }
+        else if (document.querySelector('input[name="email"]').value == "") {
+            alert("Please enter your email");
+            event.preventDefault()
+        }
+        else if (document.querySelector('input[name="phone_num"]').value == "") {
+            alert("Please enter your phone number");
+            event.preventDefault()
+        }
+        else if (document.querySelector('input[name="interested"]:checked') == null) {
+            alert("Please select your interest");
+            event.preventDefault()
+        }
+        else if (document.querySelector('input[name="Types"]:checked') == null) {
+            alert("Please select your product type");
+            event.preventDefault()
+        }
+        else if (document.querySelector('input[name="timetochoose"]:checked') == null) {
+            alert("Please select your time to choose");
+            event.preventDefault()
+        }
+        else if (document.querySelector('textarea[name="message"]').value == "") {
+            alert("Please enter your message");
+            event.preventDefault()
+        }
+        else{
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let email = document.querySelector('input[name="email"]').value;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                event.preventDefault();
+            }
+            let phonePattern = /^\d{10}$/;
+            let phone = document.querySelector('input[name="phone_num"]').value;
+            if (!phonePattern.test(phone)) {
+                alert("Please enter a valid phone number.");
+                event.preventDefault();
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+﻿@font-face {
+  font-family: 'Frank Ruhl Libre';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(s/frankruhllibre/v19/j8_96_fAw7jrcalD7oKYNX0QfAnPcbzNEEB7OoicBw6bYVqQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(s/frankruhllibre/v19/j8_96_fAw7jrcalD7oKYNX0QfAnPcbzNEEB7OoicBw7FYVqQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(s/frankruhllibre/v19/j8_96_fAw7jrcalD7oKYNX0QfAnPcbzNEEB7OoicBw73YVqQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(s/frankruhllibre/v19/j8_96_fAw7jrcalD7oKYNX0QfAnPcbzNEEB7OoicBw4iZlqQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Frank Ruhl Libre';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url(s/frankruhllibre/v19/j8_96_fAw7jrcalD7oKYNX0QfAnPcbzNEEB7OoicBw5sZlqQ.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Karma';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(s/karma/v16/va9F4kzAzMZRGLjDY8Z_.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Karma';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(s/karma/v16/va9I4kzAzMZRGIBv.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Karma';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(s/karma/v16/va9F4kzAzMZRGLibYsZ_.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Karma';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(s/karma/v16/va9F4kzAzMZRGLi3ZcZ_.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Karma';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(s/karma/v16/va9F4kzAzMZRGLjTZMZ_.ttf) format('truetype');
+}

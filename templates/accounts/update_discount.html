@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>
+    Update Discount | Dermacet Organics
+</title>
+{% endblock %}
+
+{% block css %}
+<style>
+
+    :root {
+        --theme:#475D44;
+        --focus:#344232;
+      }
+    
+      .buyBtn{
+        background: var(--theme);
+        color: white;
+        border-radius: 0;
+        border: 2px solid var(--theme);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+    
+      .buyBtn:hover{
+        color: white;
+        background: var(--focus);
+        text-decoration: none;
+      }
+    
+      .buyBtn:active{
+        background: var(--focus);
+        border: 2px solid var(--focus);
+      }
+
+      .input{
+        border: 2px solid var(--theme);
+        border-radius: 0;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem 0;
+        display: block;
+        font-size: x-large;
+      }
+      
+      form{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 5rem 0;
+      }
+</style>
+{% endblock  %}
+
+{% block start %}
+<form method="post" class="form-control"> {% csrf_token %}
+    {% include "base/alert.html" %}
+    <input class="p-2 input" type="number" name="discount_percentage" placeholder="Enter Discount Percentage">
+    <button class="buyBtn" type="submit">Update</button>
+</form>
+{% endblock  %}

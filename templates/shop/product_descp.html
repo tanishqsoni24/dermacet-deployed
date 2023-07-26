@@ -1,0 +1,183 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}
+<title>
+    {{prodDescp.prod_name}} | Dermacet Organics
+</title>
+{% endblock %}
+
+{% block start %}
+
+    <main class="main__content_wrapper">
+        
+        <!-- Start breadcrumb section -->
+        <div class="breadcrumb__section breadcrumb__bg">
+            <div class="container">
+                <div class="row row-cols-1">
+                    <div class="col">
+                        <div class="breadcrumb__content text-center">
+                            <ul class="breadcrumb__content--menu d-flex justify-content-center">
+                                <li class="breadcrumb__content--menu__items"><a href="/">Home</a></li>
+                                <li class="breadcrumb__content--menu__items"><a href="/shop">Shop</a></li>
+                                <li class="breadcrumb__content--menu__items"><span>{{prodDescp.prod_name}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End breadcrumb section -->
+
+        <!-- Start product details section -->
+        <section class="product__details--section section--padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="product__details--media">
+                            <div class="single__product--preview bg__gray  swiper mb-18">
+                                <div class="swiper-wrapper">
+                                    {% for image in prodDescp.product_images.all %}
+                                    <div class="swiper-slide">
+                                        <div class="product__media--preview__items">
+                                            <a class="product__media--preview__items--link glightbox" data-gallery="product-media-preview" href="/media/{{image.image}}"><img class="product__media--preview__items--img" src="/media/{{image.image}}" alt="product-media-img"></a>
+                                            <div class="product__media--view__icon">
+                                                <a class="product__media--view__icon--link glightbox" href="/media/{{image.image}}" data-gallery="product-media-preview">
+                                                    <svg class="product__items--action__btn--svg" xmlns="http://www.w3.org/2000/svg" width="22.51" height="22.443" viewbox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path></svg>
+                                                    <span class="visually-hidden">product view</span> 
+                                                </a>
+                                            </div>
+    
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="single__product--nav swiper">
+                                <div class="swiper-wrapper">
+                                    {% for image in prodDescp.product_images.all %}
+                                    <div class="swiper-slide">
+                                        <div class="product__media--nav__items">
+                                            <img class="product__media--nav__items--img" src="/media/{{image.image}}" alt="product-nav-img">
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="swiper__nav--btn swiper-button-next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" -chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </div>
+                                <div class="swiper__nav--btn swiper-button-prev">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=" -chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                </div>
+                            </div>
+                        </div>  
+                    </div> 
+                    <div class="col-lg-6 col-md-6">
+                        <div class="product__details--info">
+                            <h2 class="product__details--info__title mb-15">{{prodDescp.prod_name}} | Dermacet Organics</h2>
+                            <div class="product__details--info__price mb-12">
+                                <span class="current__price">₹ {{prodDescp.your_price}}</span>
+                                <span class="old__price">₹ {{prodDescp.price}}</span>
+                            </div>
+                            <ul class="rating product__card--rating mb-15 d-flex">
+                                <li>
+                                    <span class="rating__review--text">({{prodDescp.reviews.all|length}}) Review</span>
+                                </li>
+                            </ul>
+                            {% for description in prodDescp.description.all %}
+                            <p class="product__details--info__desc mb-15">{{description.prod_descp}}</p>
+                            {% endfor %}
+                            <div class="product__variant">
+                                <div class="product__variant--list quantity d-flex align-items-center mb-20">
+                                    <a class="primary__btn quickview__cart--btn">Add To Cart</a>  
+                                </div>
+                            </div>
+                            <div class="product__details--accordion">
+                                <div class="product__details--accordion__list">
+                                    <details>
+                                        <summary class="product__details--summary">
+                                            <h2 class="product__details--summary__title">Product Reviews
+                                                <svg width="11" height="6" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle__dropdown" fill="currentColor"><path d="M.504 1.813l4.358 3.845.496.438.496-.438 4.642-4.096L9.504.438 4.862 4.534h.992L1.496.69.504 1.812z"></path></svg>
+                                            </h2>
+                                        </summary>
+                                        <div class="product__details--summary__wrapper">
+                                            <div class="product__reviews">
+                                                <div class="product__reviews--header">
+                                                    <h2 class="product__reviews--header__title h3 mb-20">Customer Reviews</h2>
+                                                    {% if reviews|length %}
+                                                    <div class="reviews__ratting d-flex align-items-center">
+                                                        <span class="reviews__summary--caption">Based on {{ reviews|length }} {% if reviews|length == 1 %}  review {% else %} reviews {% endif %}</span>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="reviews__ratting d-flex align-items-center">
+                                                        <span class="reviews__summary--caption">Post First Review!</span>
+                                                    </div>
+                                                    {% endif %}
+                                                    <a class="actions__newreviews--btn primary__btn" href="#writereview">Write A Review</a>
+                                                </div>
+                                                {% if reviews|length %}
+                                                <div class="reviews__comment--area">
+                                                    {% for review in reviews %}
+                                                    <div class="reviews__comment--list d-flex">
+                                                        <div class="reviews__comment--thumb">
+                                                            <img src="/assets/img/icon/userAdmin.png" alt="comment-thumb">
+                                                        </div>
+                                                        <div class="reviews__comment--content">
+                                                            <div class="reviews__comment--top d-flex justify-content-between">
+                                                                <div class="reviews__comment--top__left">
+                                                                    <h3 class="reviews__comment--content__title h4">{{review.user.username}} {% if review.user == request.user %} | <a href="{% url 'delete_review' review.uid %}" onclick="confirmDelete(event, '{{ review.uid }}')">Delete</a>{% endif %}</h3>
+                                                                </div>
+                                                                <span class="reviews__comment--content__date">{{review.publish_date}}</span>
+                                                            </div>
+                                                            <p class="reviews__comment--content__desc">{{review.review}}</p>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                                {% endif %}
+                                                <form id="writereview" method="post" class="reviews__comment--reply__area"> {% csrf_token %}
+                                                    <h3 class="reviews__comment--reply__title mb-15">Add a review </h3>
+                                                    <div class="row">
+                                                        <div class="col-12 mb-10">
+                                                            <textarea name="review_message" class="reviews__comment--reply__textarea" placeholder="Your Comments...."></textarea>
+                                                        </div>   
+                                                    </div>
+                                                    <button class="primary__btn text-white" data-hover="Submit" onclick="return isReviewValid()" type="submit">SUBMIT</button> 
+                                                </form> 
+                                            </div> 
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </section>
+        <!-- End product details section -->
+
+    </main>
+
+    <script>
+
+       function isReviewValid(){
+            let name = document.getElementsByName("review_message")[0].value;
+            if(name == ""){
+                alert("Please Fill All The Fields");
+                return false;
+            }
+            else if (name.trim() === "") {
+                alert("Please Type something");
+                return false;
+            } 
+        };
+
+        function confirmDelete(event, reviewId) {
+            event.preventDefault();
+            let confirmation = confirm("Are you sure you want to delete this review?");
+            if (confirmation) {
+                window.location.href = "/shop/delete_review/" + reviewId + "/";
+            }
+        }
+    </script>
+
+    {% endblock %}

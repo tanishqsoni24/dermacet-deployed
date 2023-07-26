@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>
+    Choose your Career with Us | Dermacet Organics
+</title>
+{% endblock %}
+
+{% block css %}
+
+<style>
+    :root {
+        --theme:#475D44;
+  
+      }
+  
+      .buyBtn{
+        background-color: var(--theme);
+        color: white;
+      }
+
+    .hire-container{
+        background: #f7f7f7;
+        padding-bottom: 1rem;
+        border-radius: 7px;
+    }    
+
+    .hiring_top{
+        background: var(--theme);
+        color: white;
+        padding: 1rem;
+        border-radius: 7px 7px 0 0;
+    }
+
+    .hiring_para{
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hiring_para h3{
+        color: var(--theme);
+        text-align: center;
+    }
+
+    .hiring_para p{
+        text-align: center;
+    }
+
+</style>
+{% endblock %}
+
+{% block start %}
+<div class="form-box container p-5">
+    <div class="hire-container">
+    <div class="hiring_top">
+        <h2>Open Hiring (SO, ASM, RSM, Techno-Sales, Trainers)</h2>
+    </div>
+    {% if not is_cv_uploaded %}
+    {% include "base/alert.html" %}
+    <div class="hiring_para">
+        <img src="/assets/img/other/career-page-icon.png" alt="share-cv-logo">
+        <h3>We're Hiring!</h3>
+        <p>Join our dynamic team and embark on an exciting journey with endless opportunities for growth and development!</p>
+        <h5>Share Your CV with Our Team</h5>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="row g-3 px-3"> {% csrf_token %}
+        <div class="col-md-12">
+            <label for="career_name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" value="{{request.user.first_name}} {{request.user.last_name}}" placeholder="Enter Your Name" id="career_name">
+        </div>
+        <div class="col-md-12">
+            <label for="career_email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="career_email" value="{{request.user.email}}" name="email" placeholder="Enter Email">
+        </div>
+        <div class="col-md-12">
+            <label for="career_cv" class="form-label">Upload CV Here</label>
+            <input name="CV" accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" type="file" id="career_cv">
+        </div>
+        <div class="col-12">
+            <input type="submit" class="buyBtn md-2" id="career_submit" value="Submit">
+        </div>
+  </form>
+    {% else %}
+
+    <div class="hiring_para">
+        <img src="/media/plugins/career-page-icon.png" alt="share-cv-logo">
+        <h3>Thank You!</h3>
+        <p>We've Already Recieved Your CV</p>
+        <!-- Have Doubts -->
+        <p>If you have submitted wrong Information or have any query please <a style="color: var(--theme); text-decoration: none;" href="/contactus">Contact Us</a></p>
+        <h5>Our Team will contact you soon.</h5>
+
+    </div>
+
+    {% endif %}
+  </div>
+</div>
+
+    <script>
+        document.getElementById("career_submit").addEventListener("click", function(event){
+            let name = document.getElementsByName("name")[0].value;
+            let email = document.getElementsByName("email")[0].value;
+            let CV = document.getElementsByName("CV")[0].value;
+            if(name == "" || email == "" || CV == ""){
+                alert("Please Fill All The Fields");
+                event.preventDefault();
+            }
+            else if (name.trim() === "" || email.trim() === "") {
+                alert("Please Type something");
+                event.preventDefault();
+            } 
+            else {
+            let fileExtension = CV.split('.').pop().toLowerCase();
+            // console.log(fileExtension);
+            // event.preventDefault();
+                if (fileExtension !== "pdf" && fileExtension !== "doc" && fileExtension !== "docx") {
+                    alert("Please upload a PDF or Excel file.");
+                    event.preventDefault();
+                }
+            }
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                event.preventDefault();
+            }
+        });
+    </script>
+{% endblock %}
+
