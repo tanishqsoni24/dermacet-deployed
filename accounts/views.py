@@ -26,9 +26,7 @@ def login(request):
             return redirect("/accounts/login")
 
         username = user.user.username if user else None
-        print(username)
         user_obj = User.objects.filter(username = username)
-        print(user_obj) 
         if not user_obj.exists():
             messages.error(request, "Account doesn't exists")
             return redirect("/accounts/login")
@@ -146,8 +144,12 @@ def view_order(request, order_id):
             else:
                 minimum_amount = 0
             
-            quantity = sum([cart_item.quantity if cart_item.quantity < cart_item.product.product_available_count else 0 for cart_item in cart_items])
-            return render(request, "accounts/view_order.html", {'cart_items':cart_items, 'order':order, "quantity":quantity, 'minimum_amount':minimum_amount, 'cart_total_without_coupon': cart_total_without_coupon})
+            # Getting Quantity of Cart Items
+            quantity = []
+            for cart_item in cart_items:
+                quantity.append(cart_item.quantity)
+            print(quantity, quantity)
+            return render(request, "accounts/view_order.html", {'cart_items':cart_items, 'order':order, "quantity":sum(quantity), 'minimum_amount':minimum_amount, 'cart_total_without_coupon': cart_total_without_coupon})
     except Exception as e:
         print(e)
         return HttpResponse("Invalid Order Id")

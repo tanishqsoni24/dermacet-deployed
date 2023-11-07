@@ -175,6 +175,22 @@
                             <span class="is-complete"></span>
                             <p>Ordered<br><span>{{order.cart.publish_date}}</span></p>
                         </div>
+                        {% if order.approved_status %}
+                        <div class="order-tracking completed">
+                            <span class="is-complete"></span>
+                            <p>Approved<br><span>{{order.approved_date}}</span></p>
+                        </div>
+                        {% elif order.reject_order %}
+                        <div class="order-tracking completed">
+                            <span class="is-complete"></span>
+                            <p>Rejected<br><span>{{order.reject_date}}</span></p>
+                        </div>
+                        {% else %}
+                        <div class="order-tracking">
+                            <span class="is-complete"></span>
+                            <p>Approved<br><span></span></p>
+                        </div>
+                        {% endif %} 
                         {% if order.dispatched_status %}
                         <div class="order-tracking completed">
                             <span class="is-complete"></span>

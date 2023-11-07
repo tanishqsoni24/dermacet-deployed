@@ -37,19 +37,21 @@
       }
 
         .payment_container{
-            width: 25rem;
+            width: 31rem;
             margin: 2rem auto;
+            border-radius: 2rem 2rem 0rem 0rem;
             background: #e3ffdf;
         }
 
         .payment-upper-body img{
-            width: 25rem;
-            border-radius: 14px 15px 0 0;
+            width: 31rem;
+            border-radius: 18px 15px 0 0;
         }
 
         .payment-lower-body{
             display: flex;
             flex-direction: column;
+            padding: 1rem;
             /* border: 2px solid; */
             align-items: center;
         }
@@ -67,6 +69,7 @@
 
         .pm-id{
             color: #ababab;
+            font-size: small;
         }
 
         .redirection{
@@ -95,11 +98,22 @@
             <h6>Payment Successful</h6>
             <span class="hyphen-div"></span>
             <span class="pm-id">Order ID : {{order_id}}</span>
-            <p style="text-align: center;">Thank you for your purchase. Your order will be processed shortly.</p>
+            <p style="text-align: center;">Thank you for your purchase. Your order Will be Approved Shortly, Kindly Visit to My Orders for checking the Approval Status.</p>
         </div>
         <div class="redirection">
             <a class="buyBtn redBtn" href="/shop">Continue Shopping</a>
         </div>
     </div>
 </div>
+
+<script>
+    setTimeout(function(){
+        window.location.href = "/shop";
+    }, 5000);
+
+    window.history.pushState(null, "", window.location.href);
+    window.onload = function(){
+        window.history.pushState(null, "", window.location.href);
+    }
+</script>
 {% endblock %}

@@ -11,6 +11,7 @@ urlpatterns = [
     path('update-discount/',views.update_discount, name="update_discount"),
     path('manageNewsLetter/', views.manageNewsLetter, name="manageNewsLetter"),
     path('success/', views.success, name="success"),
+    path('utrId/success/', views.successUtr, name="successUtr"),
     path('delete_review/<uuid:review_id>/', views.delete_review, name="delete_review"),
     path('<slug>/',views.prodDescp, name="Product"),
 ]

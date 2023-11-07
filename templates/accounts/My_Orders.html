@@ -93,6 +93,11 @@ table.dataTable thead th.sorting_asc:before {
     width: 1rem;
     display: inline;
 }
+
+.ultramicro{
+    display: inline;
+    width: 0.5rem;
+}
     </style>
 {% endblock %}
 
@@ -108,6 +113,7 @@ table.dataTable thead th.sorting_asc:before {
                     <th class="font-weight-bold py-2 border-0 ">Order Item(s)</th>
                     <th class="font-weight-bold py-2 border-0 ">Placed On</th>
                     <th class="font-weight-bold py-2 border-0 ">Payment Status</th>
+                    <th class="font-weight-bold py-2 border-0 ">Approve Status</th>
                     <th class="font-weight-bold py-2 border-0 ">Dispatched Status</th>
                     <th class="font-weight-bold py-2 border-0 ">Shipping Status</th>
                     <th class="font-weight-bold py-2 border-0 ">Amount</th>
@@ -123,6 +129,13 @@ table.dataTable thead th.sorting_asc:before {
                     <td>{{order.cart.publish_date}}</td>
                     {% if order.cart.is_paid %}
                     <td><img class="micro" src="/assets/img/icon/status_paid.png" alt=""> Paid</td>
+                    {% else %}
+                    <td><img class="micro" src="/assets/img/icon/unpaid.png" alt=""> Pending</td>
+                    {% endif %}
+                    {% if order.approved_status %}
+                    <td><img class="micro" src="/assets/img/icon/status_paid.png" alt=""> Approved</td>
+                    {% elif order.reject_order %}
+                    <td><img class="ultramicro" src="/assets/img/icon/reject.png" alt=""> Rejected</td>
                     {% else %}
                     <td><img class="micro" src="/assets/img/icon/unpaid.png" alt=""> Pending</td>
                     {% endif %}

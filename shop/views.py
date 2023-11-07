@@ -8,6 +8,7 @@ import razorpay
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Count
+import uuid
 
 # Create your views here.
 
@@ -181,16 +182,24 @@ def cartView(request):
             cost_of_cart_without_coupon = cart.get_cart_total_without_coupen(cart.razorpay_order_id)
             if cart.city:
                 # Razorpay
-                client = razorpay.Client(auth=(settings.KEY, settings.SECRET))
-                data = { "amount": carts.first().get_cart_total()*100, "currency": "INR", "payment_capture": 1 }
-                payment = client.order.create(data=data)
-                carts.first().set_razorpay_order_id(payment['id'])
+                # client = razorpay.Client(auth=(settings.KEY, settings.SECRET))
+                # data = { "amount": carts.first().get_cart_total()*100, "currency": "INR", "payment_capture": 1 }
+                # payment = client.order.create(data=data)
+                # carts.first().set_razorpay_order_id(payment['id'])
+
+                payment_id = generate_uid()
+                payment = {'id':payment_id, 'amount':cost_of_cart_without_coupon*100}
+                cart.set_razorpay_order_id(payment_id)
                 if delete:
                     messages.warning(request, "Product(s) That are not available are automatically removed Your Purchase List")
-                    return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 'payment':payment, 'cost_of_cart_without_coupon':cost_of_cart_without_coupon})
-                return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 'payment':payment, 'cost_of_cart_without_coupon':cost_of_cart_without_coupon})
+                    return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart,
+                     'payment':payment,
+                     'cost_of_cart_without_coupon':cost_of_cart_without_coupon})
+                return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 
+                'payment':payment,
+                 'cost_of_cart_without_coupon':cost_of_cart_without_coupon})
             if delete:
-                messages.warning(request, "Product(s) That are not available are automatically removed Your Purchase List")
+                messages.warning(request, "Product(s) That are not available are automatically removed from Your Purchase List")
                 return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 'cost_of_cart_without_coupon':cost_of_cart_without_coupon})
             messages.warning(request, "Some Details are automatically filled! Please Check and Update if needed")
             return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 'cost_of_cart_without_coupon':cost_of_cart_without_coupon})
@@ -208,6 +217,11 @@ def cartView(request):
             state = request.POST.get("state")
             pincode = request.POST.get("pincode")
             country = request.POST.get("country")
+
+            if not first_name or not last_name or not email or not phone or not address or not city or not state or not pincode or not country:
+                messages.warning(request, "Please Fill All the Details")
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
             cart = carts.first()
             cart.first_name = first_name
             cart.last_name = last_name
@@ -227,14 +241,22 @@ def cartView(request):
             cost_of_cart_without_coupon = cart.get_cart_total_without_coupen(cart.razorpay_order_id)
             cart.save()
             # Razorpay
-            client = razorpay.Client(auth=(settings.KEY, settings.SECRET))
-            data = { "amount": carts.first().get_cart_total()*100, "currency": "INR", "payment_capture": 1 }
-            payment = client.order.create(data=data)
-            carts.first().set_razorpay_order_id(payment['id'])
+            # client = razorpay.Client(auth=(settings.KEY, settings.SECRET))
+            # data = { "amount": carts.first().get_cart_total()*100, "currency": "INR", "payment_capture": 1 }
+            # payment = client.order.create(data=data)
+            # carts.first().set_razorpay_order_id(payment['id'])
+
+            payment_id = generate_uid()
+            payment = {'id':payment_id, 'amount':cost_of_cart_without_coupon*100}
+            cart.set_razorpay_order_id(payment_id)
             if delete:
                 messages.warning(request, "Product(s) That are not available are automatically removed Your Purchase List")
-                return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 'payment':payment, 'cost_of_cart_without_coupon':cost_of_cart_without_coupon})
-            return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 'payment':payment, 'cost_of_cart_without_coupon':cost_of_cart_without_coupon})      
+                return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 
+                'payment':payment,
+                 'cost_of_cart_without_coupon':cost_of_cart_without_coupon})
+            return render(request, 'shop/delivery_details.html', {'cart_items': cart_items, 'cost_of_cart':cost_of_cart, 'cart':cart, 
+            'payment':payment,
+             'cost_of_cart_without_coupon':cost_of_cart_without_coupon})      
 
         # Coupen
         if request.method == 'POST' and request.POST.get("coupen"):
@@ -271,6 +293,10 @@ def cartView(request):
     messages.warning(request, "LogIn First")
     return redirect('/accounts/login')
 
+def generate_uid():
+    uid = "".join(str(uuid.uuid4()).split("-")[:10])
+    return uid
+
 @login_required(login_url="/accounts/login")
 def success(request):
     if request.method == "POST":
@@ -301,6 +327,52 @@ def success(request):
             save_my_order = MyOrders(user=request.user, cart=cart)
             save_my_order.save()
             return render(request, 'shop/payment_successful.html', {'order_id':order_id, 'amount':amount[0:-2]})
+    return HttpResponse("404 Error")
+
+
+@login_required(login_url="/accounts/login")
+def successUtr(request):
+    if request.method == "POST":
+        order_id = request.POST.get('order_ID')
+        utr_id = request.POST.get('utr-id')
+        payment_id = "pay_" + generate_uid()
+        signature = "paySign_" + generate_uid()
+
+        if not utr_id:
+            messages.warning(request, "Please Enter UTR ID")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        cart = Cart.objects.filter(razorpay_order_id=order_id).first()
+        if cart:
+            if cart.razorpay_order_id != order_id:
+                return HttpResponse("Order ID Mismatch")
+            cost_without_coupon = cart.get_cart_total_without_coupen(cart.razorpay_order_id)
+            cart.is_paid = True  
+            cart.paid_cart_quantity = request.user.profile.get_cart_count()
+            for product in cart.cart_items.all():
+                product.product.set_product_available_count(product.quantity)
+                product.product.set_buy_count(product.quantity)
+                product.item_price = product.product.your_price
+                product.save()
+            amount = 0
+            if cart.coupen:
+                for item in cart.cart_items.all():
+                    amount = amount + (item.item_price * item.quantity)
+                amount = amount - cart.coupen.discount_price
+            else:
+                for item in cart.cart_items.all():
+                    amount = amount + (item.item_price * item.quantity)
+            print("amount is = ",amount)
+            cart.publish_date = timezone.now()
+            cart.set_payment_done_amount(amount)
+            cart.set_payment_done_amount_without_offer(cost_without_coupon)
+            cart.razorpay_payment_id = payment_id
+            cart.razorpay_payment_signature = signature
+            cart.save()
+            save_my_order = MyOrders(user=request.user, cart=cart, utr_id=utr_id)
+            save_my_order.save()
+            return render(request, 'shop/payment_successful.html', {'order_id':order_id, 'amount':amount, 'utr_id':utr_id})
+        return HttpResponse("404 Error")
     return HttpResponse("404 Error")
 
 def remove_cart(request, cart_item_uid):
