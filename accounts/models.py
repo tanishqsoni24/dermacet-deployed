@@ -119,6 +119,11 @@ class CartItems(BaseModel):
 class MyOrders(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="my_orders")
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="my_cart")
+    utr_id = models.CharField(max_length=100, null=True, blank=True)
+    approved_status = models.BooleanField(default=False)
+    approved_date = models.DateTimeField(null=True, blank=True)
+    reject_order = models.BooleanField(default=False)
+    reject_date = models.DateTimeField(null=True, blank=True)
     dispatched_status = models.BooleanField(default=False)
     dispatched_date = models.DateTimeField(null=True, blank=True)
     tracking_id = models.CharField(max_length=100, null=True, blank=True)
@@ -128,7 +133,7 @@ class MyOrders(BaseModel):
 
 
     def __str__(self) -> str:
-        return self.user.username + " - " + (lambda: "Not Dispatched", lambda: "Dispatched")[self.dispatched_status]() + " , " + (lambda: "Not Shipped", lambda: "Shipped")[self.delivered_status]() 
+        return self.user.username + " - " + (lambda: "Not Dispatched", lambda: "Dispatched")[self.dispatched_status]() + " , " + (lambda: "Not Shipped", lambda: "Shipped")[self.delivered_status]()  + "date - " + str(self.cart.paid_cart_quantity)
 
 @receiver(post_save, sender=User)
 def send_email_token(sender, instance, created, **kwargs):

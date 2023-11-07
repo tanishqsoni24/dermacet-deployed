@@ -92,6 +92,54 @@
     .bRadius5{
         border-radius: 5px;
     }
+
+    .qrcode-cont{
+        border: 2px solid;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #000000a1;
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        width: 100vw;
+        z-index: 1000;
+        height: 100vh;
+        overflow-y: scroll;
+        display: none;
+    }
+
+    .qrbox{
+        position: relative;
+        top: 8rem;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 7px;
+    }
+
+    .qrbox h3{
+        text-align: center;
+        margin: 0 0 1rem 0;
+    }
+
+    .qrcode img{
+        width: 29rem;
+    }
+
+    .qrbox form{
+        background: #fff;
+        border-radius: 0 0 5px 5px;
+        padding: 1rem;
+        /* margin: 2rem 0; */
+        display: flex;
+        flex-direction: column;
+        width: 29rem;
+    }
+
+    #utrid{
+        margin: 1rem 0;
+    }
+    
 </style>
 
 {% endblock %}
@@ -242,7 +290,7 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td>
                             <img class="prodImg" style="width: 6rem;" src="{{ cart_item.product.product_images.first.image.url }}" alt="">
-                        </td>
+                        </td>   
                         <td>{{ cart_item.product.prod_name }}</td>
                         <td>{{cart_item.product.your_price}}</td>
                         <td>{{cart_item.quantity}}</td>
@@ -289,21 +337,49 @@
                 </table>
                 <input type="submit" value="Proceed to Payment ₹{{cost_of_cart}}/-" class="buyBtn bRadius5" name="" id="rzp-button1">
             </form>
+
             <form style="display: none;" id="success_form" method="post" action="/shop/success/"> {% csrf_token %}
                 <input type="hidden" id="orderId_of_cart" name="order_ID" value="{{payment.id}}">
                 <input type="hidden" id="cost_without_coupon" name="cost_without_coupon" value="{{cost_of_cart_without_coupon}}">
                 <input type="hidden" id="cost_of_cart" name="amount" value="{{payment.amount}}">
-                <input type="hidden" id="payment_id" name="payment_id">
-                <input type="hidden" id="payment_signature" name="signature">
             </form>
             {% if payment or cart.city %}
+            <script>
+                document.getElementById('rzp-button1').onclick = function(e){
+                    qrwindow = document.getElementById("qrcodecont")
+                    qrwindow.style.display = "flex"
+                    document.body.style.overflow = "hidden"
+                    event.preventDefault();
+                }
+
+                function closeQr(){
+                    qrwindow = document.getElementById("qrcodecont")
+                    qrwindow.style.display = "none"
+                    document.body.style.overflow = "scroll"
+                    event.preventDefault();
+                }
+
+                function utrSubmit(){
+                    order_id = document.getElementById("orderId_of_cart")
+                    order_id.value = "{{payment.id}}"
+                    utr_id = document.getElementById("utrid")
+                    if (utr_id.value == ""){
+                        alert("Please Enter UTR ID")
+                        event.preventDefault();
+                    }
+                    else{
+                        alert("Your Order is Placed Successfully, Kindly Wait for the Approval of UTR ID.")
+                    }
+                }
+
+            </script>
             <!-- <script>
                 document.getElementById('rzp-button1').onclick = function(e){
                     alert("For Payment Details Contact at Accountable Person : PANKAJ VERMA - +91 9582483002")
                     event.preventDefault();
                 }
             </script> -->
-            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+            <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
             <script>
             var options = {
                 "key": "rzp_test_y7wskmOKr6CQAk", // Enter the Key ID generated from the Dashboard
@@ -345,7 +421,7 @@
                 rzp1.open();
                 e.preventDefault();
             }
-            </script>
+            </script> -->
             {% else %}
                 <script>
                     document.getElementById('rzp-button1').onclick = function(e){
@@ -354,6 +430,26 @@
                     }
                 </script>
             {% endif %}
+        </div>
+    </div>
+    <!-- Show QR CODE -->
+
+    <div class="qrcode-cont" id="qrcodecont">
+        <div class="qrbox">
+            <div style="display: flex; justify-content: end;"><img style="cursor: pointer;" onclick="closeQr()" width="24" height="24" src="https://img.icons8.com/material/24/delete-sign--v1.png" alt="delete-sign--v1"/></div>
+            <h3 class="qr-heading">
+                Scan QR Code to Pay
+            </h3>
+            <div class="qrcode">
+                <img src="/assets/img/important/qrcode.png" alt="qr-code">
+            </div>
+            <form onsubmit="utrSubmit()" action="/shop/utrId/success/" method="post">
+                {% csrf_token %}
+                <label for="utrid">Enter UTR ID Here*</label>
+                <input type="text" required name="utr-id" id="utrid">
+                <input type="hidden" id="orderId_of_cart" name="order_ID" value="{{payment.id}}">
+                <input type="submit" value="Send UTR Id" class="buyBtn bRadius5">
+            </form>
         </div>
     </div>
     <script>

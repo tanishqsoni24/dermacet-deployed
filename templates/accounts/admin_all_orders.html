@@ -95,6 +95,11 @@ table.dataTable thead th.sorting_asc:before {
     
     display: inline;
 }
+
+.ultramicro{
+    display: inline;
+    width: 0.5rem;
+}
     </style>
 {% endblock %}
 
@@ -127,6 +132,13 @@ table.dataTable thead th.sorting_asc:before {
                     <td><img class="micro" src="/assets/img/icon/status_paid.png" alt="statusPNG"> Paid</td>
                     {% else %}
                     <td><img class="micro" src="/assets/img/icon/unpaid.png" alt="statusPNG"> Pending</td>
+                    {% endif %}
+                    {% if order.approved_status %}
+                    <td><img class="micro" src="/assets/img/icon/status_paid.png" alt=""> Approved</td>
+                    {% elif order.reject_order %}
+                    <td><img class="ultramicro" src="/assets/img/icon/reject.png" alt=""> Rejected</td>
+                    {% else %}
+                    <td><img class="micro" src="/assets/img/icon/unpaid.png" alt=""> Pending</td>
                     {% endif %}
                     {% if order.dispatched_date %}
                     <td><img class="micro" src="/assets/img/icon/status_paid.png" alt="statusPNG"> Dispatched</td>
