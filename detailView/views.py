@@ -57,7 +57,10 @@ def career(request):
             profile.save()
             messages.success(request, "Your Request has been submitted successfully")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        if list(Profile.objects.filter(user=request.user).values('is_cv_uploaded'))[0].get('is_cv_uploaded'):
+        
+        profile = Profile.objects.filter(user=request.user).first()
+        # if list(Profile.objects.filter(user=request.user).values('is_cv_uploaded'))[0].get('is_cv_uploaded'):
+        if profile and profile.is_cv_uploaded:
             return render(request, "detailView/career.html", {'is_cv_uploaded':True})
         messages.warning(request, "Autofilled your details from your profile! Please correct if any wrong")
         return render(request, "detailView/career.html")
