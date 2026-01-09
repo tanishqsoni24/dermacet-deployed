@@ -1,0 +1,239 @@
+/* Professional Video Advertisement Section */
+.video__advertisement--section {
+    position: relative;
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    overflow: hidden;
+}
+
+.video__advertisement--wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.video__advertisement--container {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    background: #000;
+}
+
+.video__advertisement--player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.video__advertisement--player video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Video Overlay */
+.video__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Video Content Overlay */
+.video__content--overlay {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    z-index: 2;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.video__content--title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.video__content--description {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    max-width: 600px;
+}
+
+.video__content--cta {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--secondary-color, #ff6b6b);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.video__content--cta:hover {
+    background: var(--primary-color, #ff5252);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+    color: #fff;
+}
+
+/* Video Controls */
+.video__controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3;
+    display: flex;
+    gap: 10px;
+}
+
+.video__control--btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.video__control--btn:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.video__control--btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #333;
+}
+
+/* Sound indicator */
+.video__sound--indicator {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.video__sound--indicator svg {
+    width: 16px;
+    height: 16px;
+    fill: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .video__advertisement--section {
+        padding: 40px 0;
+    }
+
+    .video__advertisement--container {
+        border-radius: 15px;
+    }
+
+    .video__content--overlay {
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+    }
+
+    .video__content--title {
+        font-size: 1.8rem;
+    }
+
+    .video__content--description {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+
+    .video__content--cta {
+        padding: 10px 25px;
+        font-size: 0.9rem;
+    }
+
+    .video__controls {
+        bottom: 15px;
+        right: 15px;
+        gap: 8px;
+    }
+
+    .video__control--btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .video__sound--indicator {
+        top: 15px;
+        right: 15px;
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .video__advertisement--player {
+        aspect-ratio: 4 / 3;
+    }
+
+    .video__content--title {
+        font-size: 1.5rem;
+    }
+
+    .video__content--description {
+        font-size: 0.85rem;
+    }
+
+    .video__content--overlay {
+        bottom: 15px;
+        left: 15px;
+        right: 15px;
+    }
+}
+
+/* Loading State */
+.video__loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.video__loading--spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
